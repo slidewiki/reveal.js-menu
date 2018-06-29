@@ -508,7 +508,7 @@ var RevealMenu = window.RevealMenu || (function(){
 						return button;
 					}
 
-					addToolbarButton('Slides', 'Slides', 'fa-images', 'fas', openPanel, true);
+					addToolbarButton('Slides', 'Slides', 'fa-file-alt  ', 'fas', openPanel, true);
 
 					if (custom) {
 						custom.forEach(function(element, index, array) {
@@ -518,7 +518,7 @@ var RevealMenu = window.RevealMenu || (function(){
 
                     if (deckUrl) {
                         addToolbarButton(
-                            'Deck Page', 'Deck Page', '<i class="fa fa-th">', null,
+                            'Deck Page', 'Deck Page', '<i class="fa fa-folder-open">', null,
                             function() { window.open(deckUrl, '_blank'); },
                         );
                     }
@@ -533,7 +533,7 @@ var RevealMenu = window.RevealMenu || (function(){
                     }
 
                     if (overview) {
-					    addToolbarButton('Overview', 'Overview', '<i class="fa fa-search">', null, Reveal.toggleOverview);
+					    addToolbarButton('Overview', 'Overview', '<i class="fa fa-images">', null, Reveal.toggleOverview);
                     }
 
 					if (themes) {

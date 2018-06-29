@@ -518,13 +518,13 @@ var RevealMenu = window.RevealMenu || (function(){
 
                     if (deckUrl) {
                         addToolbarButton(
-                            'Deck Page', 'Deck Page', '<i class="fa fa-folder-open">', null,
+                            'Deck Page', 'Deck Page', '<i class="fas fa-folder-open">', null,
                             function() { window.open(deckUrl, '_blank'); },
                         );
                     }
 
                     if (speakerNotes){
-					    addToolbarButton('Notes', 'Notes', '<i class="fa fa-sticky-note">', null,
+					    addToolbarButton('Notes', 'Notes', '<i class="fas fa-sticky-note">', null,
                             function() {
 					            console.log('open notes');
                                 RevealNotes.open();
@@ -533,7 +533,7 @@ var RevealMenu = window.RevealMenu || (function(){
                     }
 
                     if (overview) {
-					    addToolbarButton('Overview', 'Overview', '<i class="fa fa-images">', null, Reveal.toggleOverview);
+					    addToolbarButton('Overview', 'Overview', '<i class="fas fa-images">', null, Reveal.toggleOverview);
                     }
 
 					if (themes) {

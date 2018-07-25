@@ -19,7 +19,7 @@ var RevealMenu = window.RevealMenu || (function(){
 
 	loadResource(options.path + 'menu.css', 'stylesheet', function() {
 		if (loadIcons) {
-			loadResource(options.path + 'font-awesome/css/fontawesome-all.min.css', 'stylesheet', loadPlugin)
+			loadResource(options.path + 'font-awesome/css/all.css', 'stylesheet', loadPlugin)
 		} else {
 			loadPlugin();
 		}
@@ -155,7 +155,6 @@ var RevealMenu = window.RevealMenu || (function(){
 			}
 
 			function selectItem(el) {
-			    console.log('selectItem');
 				el.classList.add('selected');
 				keepVisible(el);
 				if (sticky && autoOpen) openItem(el);
@@ -404,7 +403,6 @@ var RevealMenu = window.RevealMenu || (function(){
 
 			function prevPanel() {
 				var next = parseInt(select('.active-toolbar-button').getAttribute('data-button')) - 1;
-
 				if (next < 0) {
 					next = buttons - 1;
 				}
@@ -529,7 +527,7 @@ var RevealMenu = window.RevealMenu || (function(){
 						return button;
 					}
 
-					addToolbarButton('Slides', 'Slides', 'fa-images', 'fas', openPanel, true);
+					addToolbarButton('Slides', 'Slides', 'fa-file-alt  ', 'fas', openPanel, true);
 
 					if (custom) {
 						custom.forEach(function(element, index, array) {
@@ -539,19 +537,19 @@ var RevealMenu = window.RevealMenu || (function(){
 
                     if (deckUrl) {
                         addToolbarButton(
-                            'Deck Page', 'Deck Page', '<i class="fa fa-th">', null,
+                            'Deck Page', 'Deck Page', '<i class="fas fa-folder-open">', null,
                             function() { window.open(deckUrl, '_blank'); },
                         );
                     }
 
                     if (speakerNotes){
-					    addToolbarButton('Notes', 'Notes', '<i class="fa fa-sticky-note">', null,
+					    addToolbarButton('Notes', 'Notes', '<i class="fas fa-sticky-note">', null,
                             function() { RevealNotes.open(); }
                         );
                     }
 
                     if (overview) {
-					    addToolbarButton('Overview', 'Overview', '<i class="fa fa-search">', null, Reveal.toggleOverview);
+					    addToolbarButton('Overview', 'Overview', '<i class="fas fa-images">', null, Reveal.toggleOverview);
                     }
 
 					if (themes) {

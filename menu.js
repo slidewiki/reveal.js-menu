@@ -155,6 +155,7 @@ var RevealMenu = window.RevealMenu || (function(){
 			}
 
 			function selectItem(el) {
+			    console.log('selectItem');
 				el.classList.add('selected');
 				keepVisible(el);
 				if (sticky && autoOpen) openItem(el);
@@ -268,10 +269,20 @@ var RevealMenu = window.RevealMenu || (function(){
 							break;
 						// space, return
 						case 32: case 13:
-							var currItem = select('.active-menu-panel .slide-menu-items li.selected');
-							if (currItem) {
-								openItem(currItem, true);
-							}
+                            var next = (parseInt(select('.active-toolbar-button').getAttribute('data-button'))) % buttons;
+
+                            if (next === 0) {
+                                // we're on the first tab, handle the submenu
+                                var currItem = select('.active-menu-panel .slide-menu-items li.selected');
+                                if (currItem) {
+                                    openItem(currItem, true);
+                                }
+                            }
+                            else {
+                                // not on the first tab, then run the code associated with the onclick event of the tab button
+                                currItem = select('.active-toolbar-button');
+                                currItem.onclick();
+                            }
 							break;
 						// esc
 						case 27: closeMenu(null, true); break;
@@ -365,7 +376,7 @@ var RevealMenu = window.RevealMenu || (function(){
 				return select('body').classList.contains('slide-menu-active');
 			}
 
-			function openPanel(event, ref) {
+			function openPanel(event, ref, idx) {
 				openMenu(event);
 				var panel = ref;
 				if (typeof ref !== "string") {
@@ -373,21 +384,31 @@ var RevealMenu = window.RevealMenu || (function(){
 				}
 				select('.slide-menu-toolbar > li.active-toolbar-button').classList.remove('active-toolbar-button');
 				select('li[data-panel="' + panel + '"]').classList.add('active-toolbar-button');
-				select('.slide-menu-panel.active-menu-panel').classList.remove('active-menu-panel');
-				select('div[data-panel="' + panel + '"]').classList.add('active-menu-panel');
+
+				if (idx !== 0) {
+				    try {
+                        select('.slide-menu-panel.active-menu-panel').classList.remove('active-menu-panel');
+                    }
+                    catch {}
+                }
+
+                if (idx === 0) {
+                    select('div[data-panel="' + panel + '"]').classList.add('active-menu-panel');
+                }
 			}
 
 			function nextPanel() {
 				var next = (parseInt(select('.active-toolbar-button').getAttribute('data-button')) + 1) % buttons;
-				openPanel(null, select('.toolbar-panel-button[data-button="' + next + '"]').getAttribute('data-panel'));
+				openPanel(null, select('.toolbar-panel-button[data-button="' + next + '"]').getAttribute('data-panel'), next);
 			}
 
 			function prevPanel() {
 				var next = parseInt(select('.active-toolbar-button').getAttribute('data-button')) - 1;
+
 				if (next < 0) {
 					next = buttons - 1;
 				}
-				openPanel(null, select('.toolbar-panel-button[data-button="' + next + '"]').getAttribute('data-panel'));
+				openPanel(null, select('.toolbar-panel-button[data-button="' + next + '"]').getAttribute('data-panel'), next);
 			}
 
 			function openItem(item, force) {
@@ -525,10 +546,7 @@ var RevealMenu = window.RevealMenu || (function(){
 
                     if (speakerNotes){
 					    addToolbarButton('Notes', 'Notes', '<i class="fa fa-sticky-note">', null,
-                            function() {
-					            console.log('open notes');
-                                RevealNotes.open();
-					        }
+                            function() { RevealNotes.open(); }
                         );
                     }
 

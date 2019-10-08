@@ -328,7 +328,8 @@ var RevealMenu = window.RevealMenu || (function(){
 				if (!isOpen()) {
 					select('body').classList.add('slide-menu-active');
 				    select('.reveal').classList.add('has-' + options.effect + '-' + side);
-				    select('.slide-menu').classList.add('active');
+					select('.slide-menu').classList.add('active');
+					select('.slide-menu').setAttribute('aria-hidden', false);
 				    select('.slide-menu-overlay').classList.add('active');
 
 					// identify active theme
@@ -358,6 +359,7 @@ var RevealMenu = window.RevealMenu || (function(){
 					select('body').classList.remove('slide-menu-active');
 					select('.reveal').classList.remove('has-' + options.effect + '-' + side);
 					select('.slide-menu').classList.remove('active');
+					select('.slide-menu').setAttribute('aria-hidden', true);
 					select('.slide-menu-overlay').classList.remove('active');
 					selectAll('.slide-menu-panel li.selected').forEach(function(i) { i.classList.remove('selected') });
 				}
@@ -486,7 +488,7 @@ var RevealMenu = window.RevealMenu || (function(){
 					var parent = select('.reveal').parentElement;
 					var top = create('div', { 'class': 'slide-menu-wrapper'});
 					parent.appendChild(top);
-					var panels = create('nav', { 'class': 'slide-menu slide-menu--' + side});
+					var panels = create('nav', { 'class': 'slide-menu slide-menu--' + side, 'aria-hidden': true });
 					if (typeof width === 'string') {
 						if (['normal', 'wide', 'third', 'half', 'full'].indexOf(width) != -1) {
 							panels.classList.add('slide-menu--' + width);
